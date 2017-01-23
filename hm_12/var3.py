@@ -18,10 +18,10 @@ def main():
                     n += 1
                     break
                 else:
-                    print('Неправильно. У тебя ещё '+str(len(keys[n]) - i+1)+' попыток.')
+                    print('Неправильно. У Вас ещё '+str(len(keys[n]) - i+1)+' попыток.')
                     i += 1
             else:
-                print('У тебя закончились попытки. Правильный ответ: '+keys[n]+' '+clues[keys[n]])
+                print('У Вас закончились попытки. Правильный ответ: '+keys[n]+' '+clues[keys[n]])
                 n += 1
             
 if __name__ == '__main__':
