@@ -1,0 +1,60 @@
+import re
+
+
+def match_verb_forms(line):
+    future = re.match(r'буд(е(шь|те?|м)|ут?) программировать', line, re.I)
+    present = re.match(r'программиру(ю|(е(те?|м|шь)))', line, re.I)
+    past = re.match(r'программировал(а|и)?', line, re.I)
+    infinitive = re.match(r'программировать(ся)?', line, re.I)
+    past_participle = re.match(r'программированн(ая|о(е|й|му?|го)|ы(й|е|ми?|х))', line, re.I)
+    present_participle = re.match(r'программируем(ая|о(е|й|му?|го)|ы(й|е|ми?|х))', line, re.I)
+    transgressive_active = re.match(r'программируя', line, re.I)
+    transgressive_passive_past = re.match(r'будучи программированн(ая|о(е|й|му?|го)|ы(й|е|ми?|х))', line, re.I)
+    transgressive_passive_present = re.match(r'будучи программируем(ая|о(е|й|му?|го)|ы(й|е|ми?|х))', line, re.I)
+    if future:
+        match = future
+    elif present:
+        match = present
+    elif past:
+        match = past
+    elif infinitive and not future:
+        match = infinitive
+    elif past_participle:
+        match = past_participle
+    elif present_participle:
+        match = present_participle
+    elif transgressive_active:
+        match = transgressive_active
+    elif transgressive_passive_past and not past_participle:
+        match = transgressive_passive_past
+    elif transgressive_passive_present and not present_participle:
+        match = transgressive_passive_present
+    else:
+        match = None
+    return match
+
+def open_forms(fname):
+    forms = []
+    with open (fname, 'r', encoding = 'utf-8') as f:
+        text = f.read()
+    text = text.lower()
+    forms = text.split()
+    for i in range(len(forms)):
+        forms[i] = forms[i].strip('.,?*()«»')
+    return forms
+
+def main():
+    matches = []
+    forms = open_forms('test.txt')
+    for i in range(len(forms)-1):
+        if i < len(forms):
+            if match_verb_forms(forms[i] +' '+ forms[i+1]) and match_verb_forms(forms[i] + forms[i+1]) not in matches:
+                matches.append(match_verb_forms(forms[i] +' '+ forms[i+1]).group(0))
+        else:
+            if match_verb_forms(forms[i]) and match_verb_forms(forms[i]) not in matches:
+                matches.append(match_verb_forms(forms[i]).group(0))
+    print(matches)
+            
+    
+if __name__ == '__main__':
+    main()
