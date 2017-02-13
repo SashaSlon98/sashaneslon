@@ -1,7 +1,7 @@
 import re
 b = input ('Название статьи: ')
 f = open(b, 'r', encoding = 'utf-8')
-q = input ("Новая статья: ")
+q = input ('Новая статья: ')
 l = open(p, 'w', encoding = 'utf-8')
 
 m = f.readlines()
