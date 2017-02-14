@@ -1,0 +1,35 @@
+import urllib.request 
+
+response = urllib.request.urlopen('http://web-corpora.net/Test2/F.xml') 
+xml = response.read() 
+
+#part 1
+
+xml_parsed = xml.split(b"<teiHeader>") 
+xml_parsed = xml_parsed[1].split(b"</teiHeader>") 
+
+
+count = -1 
+for i in xml_parsed[0].decode('utf-8'): 
+  if i == '\n': 
+    count += 1 
+
+out_file = open("out.txt", "w") 
+out_file.write(str(count))
+
+#part 2
+
+island_dict = collections.defaultdict()
+soup = BeautifulSoup(xml, "lxml")
+
+for w in soup.findAll('w'):
+    next_type = w.get('type')
+  if next_type not in island_dict:
+      island_dict[next_type] = 1
+  else:
+      island_dict[next_type] += 1
+
+out_file1 = open("out1.txt", "w")
+
+for ttype in island_dict:
+    out_file1.write(ttype.encode('utf-8') + " " + str(island_dict[ttype]) + "\n"
