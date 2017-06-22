@@ -1,0 +1,22 @@
+import os
+import re
+
+def fun_1(f):
+    l = 0
+    ana = 0
+    for r in f:
+        if 'w' in r:
+            l += 1
+            ana += r.count('ana')
+            
+    print('Среднее количество разборов = {}'.format(ana/l))
+            
+
+def main():
+    f = open(r'text.xml', 'r', encoding="utf-8")
+    
+    fun_1(f)
+
+if __name__ == '__main__':
+    main()
+        
