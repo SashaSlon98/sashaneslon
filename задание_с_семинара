@@ -1,0 +1,14 @@
+#распечатать сегодняшнюю температуру и облачность. Время восхода и заката. Погоду на завтра
+
+import urllib.request   
+req = urllib.request.Request('https://yandex.ru/pogoda/moscow?from=serp_title')
+with urllib.request.urlopen(req) as response:
+    html = response.read().decode('utf-8')
+    print(html[:210])
+url = 'https://yandex.ru/pogoda/moscow?from=serp_title'
+user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
+req = urllib.request.Request('https://yandex.ru/pogoda/moscow?from=serp_title', headers={'User-Agent':user_agent})
+
+
+with urllib.request.urlopen(req) as response:
+    html = response.read().decode('utf-8')
